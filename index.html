@@ -12,6 +12,13 @@
     <link href="css/xcharts.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
+      #myChart {
+        width:  400px; 
+        height: 200px;
+      }
+      #myChart > svg {
+        padding:10px;
+      }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -39,16 +46,19 @@
       <hr>
       <div class="row-fluid">
         <div class="span6">
+          <h3>Abstimmen</h3>
           <button class="btn">jQuery</button> &nbsp; 3 Stimmen<br /><br />
           <button class="btn">Zepto</button> &nbsp; 1 Stimmen<br /><br />
           <button class="btn">Underscore</button> &nbsp; 7 Stimmen<br /><br />
-          <div class="input-append">
+          <button class="btn btn-inverse">Sonstiges</button><br /><br />          
+
+          <!--<div class="input-append">
             <input type="text" class="input-medium"></input> &nbsp; <button class="btn">Hinzufügen</button>
-          </div>
+          </div>-->
         </div>
         <div class="span6">
           <h3>Ergebnisse</h3>
-          <figure style="width: 400px; height: 200px;" id="myChart"></figure>
+          <figure id="myChart"></figure>
         </div>
       </div>
       <hr>
@@ -77,6 +87,7 @@
     var data = {
       "xScale": "ordinal",
       "yScale": "linear",
+      "yMin": 0,
       "type": "bar",
       "main": [
         {
