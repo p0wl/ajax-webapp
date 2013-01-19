@@ -3,7 +3,7 @@
 <html lang="en" ng-app>
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>Angular JS &middot; Paul Mölders</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -50,15 +50,26 @@
       <hr>
       <div class="row-fluid" ng-controller="VoteCtrl">
         <div class="span6">
-          <h3>Abstimmen</h3>
-          <div ng-repeat="framework in frameworks">
+          <h3>Abstimmen 
+            <div class="pull-right">
+              <!-- Filter -->
+              <input type="text" ng-model="search" placeholder="Filtern" class="input-medium">
+            </div>
+          </h3>
+
+          <!-- Liste der Frameworks -->
+          <div ng-repeat="framework in frameworks | filter:search | orderBy:'text'">
             <button class="btn" ng-click="framework.votes = framework.votes*1.0+1 ">{{framework.text}}</button> &nbsp; {{framework.votes}} Stimmen<br /><br />
           </div>
-          <button class="btn btn-inverse">Sonstiges</button><br /><br />          
+          <br />
 
-          <!--<div class="input-append">
-            <input type="text" class="input-medium"></input> &nbsp; <button class="btn">Hinzufügen</button>
-          </div>-->
+          <!-- Hinzufügen Button & Input -->
+          <button ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
+          <div ng-show="newchoice" class="input-append">
+            <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
+            <button ng-click="addChoice()" class="btn btn-primary">Hinzufügen</button>
+          </div>
+          
         </div>
         <div class="span6">
           <h3>Ergebnisse</h3>
