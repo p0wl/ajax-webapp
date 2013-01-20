@@ -7,21 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <script src="js/angular.js"></script>
-    <script src="js/angular-resource.js"></script>
-    <script src="js/app-angular.js"></script>
     
     <!-- Le styles -->
-    <link href="css/xcharts.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
-      #myChart {
-        width:  400px; 
-        height: 200px;
-      }
-      #myChart > svg {
-        padding:10px;
+      .vote-row {
+        height:40px;
       }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -58,8 +49,8 @@
           </h3>
 
           <!-- Liste der Frameworks -->
-          <div ng-repeat="framework in frameworks | filter:search | orderBy:'text'">
-            <button class="btn" ng-click="framework.votes = framework.votes*1.0+1 ">{{framework.text}}</button> &nbsp; {{framework.votes}} Stimmen<br /><br />
+          <div ng-repeat="framework in frameworks | filter:search | orderBy:'text'" class="vote-row">
+            <button class="btn btn-small" ng-click="framework.votes = framework.votes*1.0+1 ">{{framework.text}}</button> <div class="pull-right"> &nbsp; {{framework.votes}} Stimmen</div><br /><br />
           </div>
           <br />
 
@@ -67,13 +58,18 @@
           <button ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
           <div ng-show="newchoice" class="input-append">
             <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-            <button ng-click="addChoice()" class="btn btn-primary">Hinzufügen</button>
+            <button type="button" ng-click="addChoice()" class="btn btn-primary">Hinzufügen</button>
           </div>
-          
+
         </div>
+
         <div class="span6">
           <h3>Ergebnisse</h3>
-          <figure id="myChart"></figure>
+          <div ng-repeat="framework in frameworks | filter:search | orderBy:'text'" class="vote-row">
+            <div class="progress">
+              <div class="bar" style="width: {{framework.votes / totalVotes() * 100}}%"></div>
+            </div>
+          </div>
         </div>
       </div>
       <hr>
@@ -89,39 +85,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="js/bootstrap.js"></script>
-    <script src="js/d3.v3.js"></script>
-    <script src="js/xcharts.js"></script>
-
-
-    <script>
-    var data = {
-      "xScale": "ordinal",
-      "yScale": "linear",
-      "yMin": 0,
-      "type": "bar",
-      "main": [
-        {
-          "className": ".js",
-          "data": [
-            {
-              "x": "jQuery",
-              "y": 3
-            },
-            {
-              "x": "Zepto",
-              "y": 1
-            },
-            {
-              "x": "Underscore",
-              "y": 7
-            }
-          ]
-        }
-      ]
-    };
-    var myChart = new xChart('bar', data, '#myChart');
-    </script>
-
-
+    <script src="js/angular.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <script src="js/app-angular.js"></script>
   </body>
 </html>
