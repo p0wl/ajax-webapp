@@ -57,8 +57,10 @@
           <!-- Hinzufügen Button & Input -->
           <button ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
           <div ng-show="newchoice" class="input-append">
-            <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-            <button type="button" ng-click="addChoice()" class="btn btn-primary">Hinzufügen</button>
+            <form ng-submit="addChoice()">
+              <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
+              <input type="submit" class="btn btn-primary">Hinzufügen</input>
+            </form>
           </div>
 
         </div>
