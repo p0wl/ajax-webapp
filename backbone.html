@@ -39,26 +39,17 @@
       </div>
 
       <hr>
-      <div class="row-fluid">
+      <div class="row-fluid" id="votingApp">
         <div class="span6">
           <h3>Abstimmen 
             <div class="pull-right">
               <!-- Filter -->
-              <input type="text" placeholder="Filtern" class="input-medium">
+              <input type="text" placeholder="Filtern" class="input-medium" id="filter">
             </div>
           </h3>
 
           <!-- Liste der Frameworks -->
-          <div class="vote-row">
-            <button class="btn btn-small">jQuery</button> <div class="pull-right"> &nbsp; 3 Stimmen</div><br /><br />
-          </div>
-          <div class="vote-row">
-            <button class="btn btn-small">Underscore</button> <div class="pull-right"> &nbsp; 6 Stimmen</div><br /><br />
-          </div>
-          <div class="vote-row">
-            <button class="btn btn-small">Zepto</button> <div class="pull-right"> &nbsp; 1 Stimmen</div><br /><br />
-          </div>
-          <br />
+          <div id="backbone-votes"></div>
           
           <!-- Hinzufügen Button & Input -->
           <button class="btn btn-inverse">Sonstiges</button>
@@ -70,16 +61,8 @@
         </div>
         <div class="span6">
           <h3>Ergebnisse</h3>
-          <div class="vote-row">
-            <div class="progress">
-              <div class="bar" style="width: 30%"></div>
-            </div>
-            <div class="progress">
-              <div class="bar" style="width: 60%"></div>
-            </div>
-            <div class="progress">
-              <div class="bar" style="width: 10%"></div>
-            </div>
+          <div class="vote-row" id="backbone-results">
+
           </div>
         </div>
       </div>
@@ -91,10 +74,23 @@
 
     </div> <!-- /container -->
 
+
+    <script type="text/template" id="choice-template">
+        <button class="btn btn-small"><%= text %></button> <div class="pull-right"> &nbsp; <%= votes %> Stimmen</div><br /><br />
+    </script>
+
+    <script type="text/template" id="result-template">
+        <div class="bar" style="width: 10%"></div>
+    </script>
+
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
+    <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/Underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app-backbone.js"></script>
   </body>
 </html>
