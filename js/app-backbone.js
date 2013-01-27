@@ -11,7 +11,16 @@ var app = app || {};
 		},
 		// Increment number of votes if button is pressed.
 		vote: function () {
-			this.set('votes',this.get('votes') + 1);
+			this.set('votes',Number(this.get('votes')) + 1);
+		},
+		// Calculate bar value
+		barValue: function () {
+			return (Number(this.get('votes')) / Number(app.Choices.totalVotes()) *100);
+		},
+		forTemplate: function() {
+			var j = this.toJSON();
+			j.barValue = this.barValue();
+			return j;
 		}
 	});
 
@@ -21,10 +30,15 @@ var app = app || {};
 		totalVotes: function () {
 			var sum = 0;
 			this.each(function (x) {
-				sum += x.get('votes');
+				sum += Number(x.get('votes'));
 			});
 			return sum;
 		},
+
+		comparator: function (m) {
+			return m.get('text').toLowerCase();
+		},
+
 		search : function(letters){
 			if (letters === "") { return this; }
 
@@ -51,28 +65,70 @@ $(function ($) {
 		el: '#votingApp',
 		events: {
 			'keypress #filter': 'filterByName',
-			'keyup #filter': 'filterByName'
+			'keyup #filter': 'filterByName',
+			'click #btnToggle': 'btnToggle',
+			'keypress #txtAdd': 'submitOnEnter'
 		},
 
 		initialize: function () {
-			this.listenTo(app.Choices, 'add', this.addChoice);
+			this.listenTo(app.Choices, 'add', this.resetFilter);
+			this.listenTo(app.Choices, 'all', this.filterByName);
+		},
 
-			app.Choices.fetch();
+		btnToggle: function () {
+			$('#btnToggle').hide();
+			$('#divToggle').show();
+		},
+
+		submitOnEnter: function (e) {
+			if ( e.which !== 13) {
+				return;
+			}
+			else
+			{
+				this.btnAdd();
+			}
+		},
+
+		btnAdd: function () {
+			var val = $('#txtAdd').val().trim();
+			if (val !== "") {
+				app.Choices.create({text: val});
+				$('#btnToggle').show();
+				$('#divToggle').hide();
+				$('#txtAdd').val('');
+			}
 		},
 
 		filterByName: function(e){
 			this.$('#backbone-votes').html('');
-			var letters = $(e.currentTarget).val();
+			this.$('#backbone-results').html('');
+
+			var letters = $(e.currentTarget || '#filter').val();
+			var col = app.Choices.sort({silent: true});
 			var results = app.Choices.search(letters);
-			console.log(results);
-			results.each(this.addChoice);
+			results.each(this.renderChoice);
+			results.each(this.renderResult);
 		},
 
-		addChoice: function (c) {
+		resetFilter: function (c) {
+			$('#filter').val('');
+		},
+
+		renderChoice: function (c) {
 			var vote = new app.ChoiceView({ model: c });
-			var result = new app.ResultView({ model: c });
 			$('#backbone-votes').append( vote.render().el );
+		},
+
+		renderResult: function (c) {
+			var result = new app.ResultView({ model: c });
 			$('#backbone-results').append( result.render().el );
+		},
+
+		renderResults: function ()
+		{
+			this.$('#backbone-results').html('');
+			app.Choices.each(this.renderResult);
 		}
 
 		
@@ -82,14 +138,21 @@ $(function ($) {
 		tagName: 'div',
 		className: 'vote-row',
 		template: _.template($('#choice-template').html()),
+		events: {
+			'click button.btn': 'addVote'
+		},
 		initialize: function () {
 			this.listenTo(this.model, 'change', this.render);
 		},
 
 		render: function (model) {
-			// Console log
 			this.$el.html( this.template( this.model.toJSON() ) );
 			return this;
+		},
+
+		addVote: function () {
+			// Increase vote count
+			this.model.vote();
 		}
 	});
 
@@ -98,12 +161,10 @@ $(function ($) {
 		className: 'progress',
 		template: _.template($('#result-template').html()),
 		initialize: function () {
-			this.listenTo(this.model, 'change', this.render);
 		},
 
 		render: function (model) {
-			// Console log
-			this.$el.html( this.template( this.model.toJSON() ) );
+			this.$el.html( this.template( this.model.forTemplate() ) );
 			return this;
 		}
 	});
@@ -114,20 +175,14 @@ $(function ($) {
 // Backbone App
 $(function() {
 
-	// Kick things off by creating the **App**.
-
+	// Overwrite to avoid syncing, as long as debuging
 	Backbone.sync = function (method, model, options) {
-			console.log('SYNCING!');
-			/*console.log(method);
-			console.log(model);
-			console.log(options);
-			console.log('SYNCED!');*/
 			return true;
 	};
 
-	window.appV = new app.AppView();
+	new app.AppView();
 
-
+	// Initial data for debuging.
 	app.Choices.create({text: 'jQuery', votes: '3'});
 	app.Choices.create({text: 'Underscore', votes: '6'});
 	app.Choices.create({text: 'Zepto', votes: '1'});

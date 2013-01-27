@@ -52,11 +52,11 @@
           <div id="backbone-votes"></div>
           
           <!-- Hinzufügen Button & Input -->
-          <button class="btn btn-inverse">Sonstiges</button>
-          <!--<div class="input-append">
-            <input type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-            <button type="button" class="btn btn-primary">Hinzufügen</button>
-          </div>-->
+          <button class="btn btn-inverse" id="btnToggle">Sonstiges</button>
+          <div class="input-append" style="display:none" id="divToggle">
+            <input type="text" class="input-medium" placeholder="Name" id="txtAdd"></input> &nbsp; 
+            <button type="button" class="btn btn-primary" id="btnAdd">Hinzufügen</button>
+          </div>
 
         </div>
         <div class="span6">
@@ -80,7 +80,7 @@
     </script>
 
     <script type="text/template" id="result-template">
-        <div class="bar" style="width: 10%"></div>
+        <div class="bar" style="width: <%= barValue %>%"></div>
     </script>
 
     <!-- Le javascript
