@@ -1,0 +1,14 @@
+# Vote for jQuery
+click              #jQuery
+assertText         #jQueryvotes        4 Stimmen
+click              #jQuery
+assertText         #jQueryvotes        5 Stimmen
+click              #Underscore
+assertText         #Underscorevotes        7 Stimmen
+
+click              #newChoice
+assertVisible      #choiceName
+type               #choiceName            AngularJS
+click              #newchoiceSubmit
+assertText         #AngularJS	          AngularJS
+

@@ -1,0 +1,20 @@
+# Vote for jQuery
+click              #backbone-votes button:first
+assertText         #backbone-votes div.pull-right:first        4 Stimmen
+click              #backbone-votes button:first
+assertText         #backbone-votes div.pull-right:first        5 Stimmen
+click              #backbone-votes button:eq(1)
+assertText         #backbone-votes div.pull-right:eq(1)        7 Stimmen
+
+click              #btnToggle
+assertVisible      #txtAdd
+type               #txtAdd            AngularJS
+click              button#btnAdd
+assertText         #backbone-votes button:eq(0)	          AngularJS
+assertText         #backbone-votes div.pull-right:eq(0)	          1 Stimmen
+
+click              #backbone-votes button:eq(0)
+click              #backbone-votes button:eq(0)
+click              #backbone-votes button:eq(0)
+click              #backbone-votes button:eq(0)
+assertText         #backbone-votes div.pull-right:eq(0)	          5 Stimmen

@@ -50,16 +50,16 @@
 
           <!-- Liste der Frameworks -->
           <div ng-repeat="framework in frameworks | filter:search | orderBy:'text'" class="vote-row">
-            <button class="btn btn-small" ng-click="framework.votes = framework.votes*1.0+1 ">{{framework.text}}</button> <div class="pull-right"> &nbsp; {{framework.votes}} Stimmen</div><br /><br />
+            <button class="btn btn-small" ng-click="framework.votes = framework.votes*1.0+1 " id="{{framework.text}}">{{framework.text}}</button> <div class="pull-right" id="{{framework.text}}votes">{{framework.votes}} Stimmen</div><br /><br />
           </div>
           <br />
 
           <!-- Hinzufügen Button & Input -->
-          <button ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
+          <button id="newChoice" ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
           <div ng-show="newchoice" class="input-append">
             <form ng-submit="addChoice()">
-              <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-              <input type="submit" class="btn btn-primary">Hinzufügen</input>
+              <input id="choiceName" ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
+              <input type="submit" id="newchoiceSubmit" class="btn btn-primary">Hinzufügen</input>
             </form>
           </div>
 
@@ -90,5 +90,8 @@
     <script src="js/angular.js"></script>
     <script src="js/angular-resource.js"></script>
     <script src="js/app-angular.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script data-tests="tests" src="mockqa/mockqa.js"></script>
   </body>
 </html>
