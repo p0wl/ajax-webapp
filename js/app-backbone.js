@@ -67,7 +67,8 @@ $(function ($) {
 			'keypress #filter': 'filterByName',
 			'keyup #filter': 'filterByName',
 			'click #btnToggle': 'btnToggle',
-			'keypress #txtAdd': 'submitOnEnter'
+			'keypress #txtAdd': 'submitOnEnter',
+			'click #btnAdd': 'btnAdd'
 		},
 
 		initialize: function () {
