@@ -1,19 +1,19 @@
 var app = app || {};
 
 (function() {
-	//'use strict';
+	'use strict';
 
-	// Backbone Models
+	// Backbone Model
 	app.Choice = Backbone.Model.extend({
 		defaults: {
 			'text': '',
 			'votes': 1
 		},
-		// Increment number of votes if button is pressed.
+		// Anzahl der Stimmen erhöhen.
 		vote: function () {
 			this.set('votes',Number(this.get('votes')) + 1);
 		},
-		// Calculate bar value
+		// Berechnung des Balkens
 		barValue: function () {
 			return (Number(this.get('votes')) / Number(app.Choices.totalVotes()) *100);
 		},
@@ -24,9 +24,12 @@ var app = app || {};
 		}
 	});
 
-	// Backbone Collections
+	// Backbone Collection
 	var ChoiceList = Backbone.Collection.extend({
+		// Model für diese Collection festlegen
 		model: app.Choice,
+		url: "localhost",
+		// Gesamtanzahl der Stimmen berechnen
 		totalVotes: function () {
 			var sum = 0;
 			this.each(function (x) {
@@ -39,6 +42,7 @@ var app = app || {};
 			return m.get('text').toLowerCase();
 		},
 
+		// Filterfunktionalität
 		search : function(letters){
 			if (letters === "") { return this; }
 
@@ -53,34 +57,42 @@ var app = app || {};
 
 }());
 
-
-// New function scope to enable jQuery only for views
+// Initialisierung
 $(function ($) {
 
-	
 	// Backbone Views
 	app.AppView = Backbone.View.extend({
 
-		// Top Element of the App
+		// View
 		el: '#votingApp',
+
+		// Definition der Events
 		events: {
+			// Use Case 3 - Filtern
 			'keypress #filter': 'filterByName',
 			'keyup #filter': 'filterByName',
+
+			// Use Case 2 - Option hinzufügen
 			'click #btnToggle': 'btnToggle',
 			'keypress #txtAdd': 'submitOnEnter',
 			'click #btnAdd': 'btnAdd'
 		},
 
+		// Event Binding
 		initialize: function () {
+			// Use Case 2 - Option hinzufügen: Filter zurücksetzen
 			this.listenTo(app.Choices, 'add', this.resetFilter);
+			// Use Case 3 - Filtern: Bei jeglichem Event Filter anwenden
 			this.listenTo(app.Choices, 'all', this.filterByName);
 		},
 
+		// Use Case 2 - Option hinzufügen: Button
 		btnToggle: function () {
 			$('#btnToggle').hide();
 			$('#divToggle').show();
 		},
 
+		// Usability: Enter anstatt klick auf den Hinzufügen Knopf zulassen.
 		submitOnEnter: function (e) {
 			if ( e.which !== 13) {
 				return;
@@ -91,22 +103,28 @@ $(function ($) {
 			}
 		},
 
+		// Use Case 2 - Option hinzufügen
 		btnAdd: function () {
 			var val = $('#txtAdd').val().trim();
 			if (val !== "") {
+				// Neues Model erstellen
 				app.Choices.create({text: val});
+				// Darstellung anpassen
 				$('#btnToggle').show();
 				$('#divToggle').hide();
 				$('#txtAdd').val('');
 			}
 		},
 
+		// Use Case 3 - Filtern
 		filterByName: function(e){
+			// Zurücksetzen der Darstellung
 			this.$('#backbone-votes').html('');
 			this.$('#backbone-results').html('');
 
+
 			var letters = $(e.currentTarget || '#filter').val();
-			var col = app.Choices.sort({silent: true});
+			//var col = app.Choices.sort({silent: true});
 			var results = app.Choices.search(letters);
 			results.each(this.renderChoice);
 			results.each(this.renderResult);
@@ -131,8 +149,6 @@ $(function ($) {
 			this.$('#backbone-results').html('');
 			app.Choices.each(this.renderResult);
 		}
-
-		
 	});
 
 	app.ChoiceView = Backbone.View.extend({
@@ -187,7 +203,4 @@ $(function() {
 	app.Choices.create({text: 'jQuery', votes: '3'});
 	app.Choices.create({text: 'Underscore', votes: '6'});
 	app.Choices.create({text: 'Zepto', votes: '1'});
-
-
-
 });
