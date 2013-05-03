@@ -43,16 +43,16 @@ var app = app || {};
 		},
 
 		// Filterfunktionalität
-		search : function(letters){
+		search: function(letters){
 			if (letters === "") { return this; }
 
-			var pattern = new RegExp(letters,"gi");
 			return _(this.filter(function(d) {
+				var pattern = new RegExp(letters,"gi");
 				return pattern.test(d.get("text"));
 			}));
 		}
 	});
-	// Create instance
+	// Instanz erstellen
 	app.Choices = new ChoiceList();
 
 }());
