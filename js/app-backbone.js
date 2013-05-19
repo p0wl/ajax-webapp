@@ -61,6 +61,7 @@ var app = app || {};
 $(function ($) {
 
 	// Backbone Views
+	// AppView 
 	app.AppView = Backbone.View.extend({
 
 		// View
@@ -69,7 +70,6 @@ $(function ($) {
 		// Definition der Events
 		events: {
 			// Use Case 3 - Filtern
-			'keypress #filter': 'filterByName',
 			'keyup #filter': 'filterByName',
 
 			// Use Case 2 - Option hinzufügen
@@ -122,28 +122,30 @@ $(function ($) {
 			this.$('#backbone-votes').html('');
 			this.$('#backbone-results').html('');
 
-
 			var letters = $(e.currentTarget || '#filter').val();
-			//var col = app.Choices.sort({silent: true});
 			var results = app.Choices.search(letters);
 			results.each(this.renderChoice);
 			results.each(this.renderResult);
 		},
 
-		resetFilter: function (c) {
+		// Filter zurücksetzen
+		resetFilter: function () {
 			$('#filter').val('');
 		},
 
+		// Eine Option darstellen
 		renderChoice: function (c) {
 			var vote = new app.ChoiceView({ model: c });
 			$('#backbone-votes').append( vote.render().el );
 		},
 
+		// Das Resultat zu einer Option darstellen
 		renderResult: function (c) {
 			var result = new app.ResultView({ model: c });
 			$('#backbone-results').append( result.render().el );
 		},
 
+		// Alle Resultate zurücksetzen und neu darstellen
 		renderResults: function ()
 		{
 			this.$('#backbone-results').html('');
@@ -168,7 +170,7 @@ $(function ($) {
 		},
 
 		addVote: function () {
-			// Increase vote count
+			// Anzahl der Stimmen erhöhen
 			this.model.vote();
 		}
 	});
