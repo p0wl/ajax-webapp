@@ -42,10 +42,10 @@
       <div class="row-fluid" ng-controller="VoteCtrl">
         <div class="span6">
           <h3>Abstimmen 
-            <div class="pull-right">
+            <b class="pull-right">
               <!-- Filter -->
               <input type="text" ng-model="search" placeholder="Filtern" class="input-medium">
-            </div>
+            </b>
           </h3>
 
           <!-- Liste der Frameworks -->
@@ -57,8 +57,8 @@
           <button ng-hide="newchoice" ng-click="newchoice = true" ng-init="newchoice = false" class="btn btn-inverse">Sonstiges</button>
           <div ng-show="newchoice" class="input-append">
             <form ng-submit="addChoice()">
-              <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-              <input type="submit" class="btn btn-primary" value="Hinzufügen"></input>
+              <input ng-model="choiceName" type="text" class="input-medium" placeholder="Name"> &nbsp; 
+              <input type="submit" class="btn btn-primary" value="Hinzufügen">
             </form>
           </div>
 
@@ -76,7 +76,7 @@
       <hr>
 
       <div class="footer">
-        &copy; Paul M&ouml;lders 2013<b class="pull-right"><a href="static.html">Ohne Framework</a> &nbsp; &nbsp; <b>AngularJS</b> &nbsp; &nbsp; <a href="backbone.html">BackboneJS</a>
+        &copy; Paul M&ouml;lders 2013<b class="pull-right"><a href="index.html">Übersicht</a> &nbsp; &nbsp; <a href="static.html">Ohne Framework</a> &nbsp; &nbsp; <b>AngularJS</b> &nbsp; &nbsp; <a href="backbone.html">BackboneJS</a></b>
       </div>
 
     </div> <!-- /container -->
