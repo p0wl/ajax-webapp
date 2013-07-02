@@ -11,11 +11,12 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
-      .vote-row {
-        height:40px;
+      .btn-size {
+        width: 130px;
       }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -34,58 +35,54 @@
       <hr>
 
       <div>
-        <h1><span class="muted">Umfrage</span> JavaScript Frameworks</h1>
-        <p class="lead">Welches JavaScript Framework benutzen Sie?</p>
+        <h1><span class="muted">Seminararbeit</span> JavaScript Frameworks</h1>
+        <p class="lead">Vergleich von AngularJS und BackboneJS</p>
       </div>
 
       <hr>
+
       <div class="row-fluid">
-        <div class="span6">
-          <h3>Abstimmen 
-            <div class="pull-right">
-              <!-- Filter -->
-              <input type="text" placeholder="Filtern" class="input-medium">
-            </div>
-          </h3>
-
-          <!-- Liste der Frameworks -->
-          <div class="vote-row">
-            <button class="btn btn-small">jQuery</button> <div class="pull-right"> &nbsp; 3 Stimmen</div><br /><br />
-          </div>
-          <div class="vote-row">
-            <button class="btn btn-small">Underscore</button> <div class="pull-right"> &nbsp; 6 Stimmen</div><br /><br />
-          </div>
-          <div class="vote-row">
-            <button class="btn btn-small">Zepto</button> <div class="pull-right"> &nbsp; 1 Stimmen</div><br /><br />
-          </div>
-          
-          <!-- Hinzufügen Button & Input -->
-          <button class="btn btn-inverse">Sonstiges</button>
-          <!--<div class="input-append">
-            <input type="text" class="input-medium" placeholder="Name"></input> &nbsp; 
-            <button type="button" class="btn btn-primary">Hinzufügen</button>
-          </div>-->
-
-        </div>
-        <div class="span6">
-          <h3>Ergebnisse</h3>
-          <div class="vote-row">
-            <div class="progress">
-              <div class="bar" style="width: 30%"></div>
-            </div>
-            <div class="progress">
-              <div class="bar" style="width: 60%"></div>
-            </div>
-            <div class="progress">
-              <div class="bar" style="width: 10%"></div>
-            </div>
-          </div>
-        </div>
+        <h3>Dokumente & Inhalte</h3>
+        <a href="docs/Seminararbeit.pdf" class="btn btn-size"><i class="icon-file-text icon-large"></i> &nbsp; Seminararbeit</a>
+        &nbsp; PDF-Dokument der Seminararbeit, Version vom 02.07.2013
+        <br /><br />
+        <a href="docs/Folien.pdf" class="btn btn-size"><i class="icon-desktop icon-large"></i> &nbsp; Präsentation</a>
+        &nbsp; PDF-Dokument der Präsentation, Version vom 02.07.2013
+        <br /><br />
+        <a href="http://github.com/p0wl/ajax-webapp" class="btn btn-size"><i class="icon-github icon-large"></i> &nbsp; Code</a>
+        &nbsp; Github Repository zur Seminararbeit
       </div>
+
+      <hr>
+
+      <div class="row-fluid">
+        <h3>Implementierungen</h3>
+        <h4>Vorlage</h4>
+        <a href="static.html" class="icon-columns" data-toggle="tooltip" title="Ansicht"></a>
+        <a href="http://github.com/p0wl/ajax-webapp/blob/master/static.html" class="icon-html5" data-toggle="tooltip" title="HTML-Code"></a>
+        HTML-Grundgerüst ohne Funktionalität
+        <br />
+        <br />
+
+        <h4>AngularJS</h4>
+        <a href="angular.html" class="icon-columns" data-toggle="tooltip" title="Ansicht"></a>
+        <a href="http://github.com/p0wl/ajax-webapp/blob/master/angular.html" class="icon-html5" data-toggle="tooltip" title="HTML-Code"></a>
+        <a href="http://github.com/p0wl/ajax-webapp/blob/master/js/app-angular.js" class="icon-code" data-toggle="tooltip" title="JavaScript"></a>
+        Umsetzung mit AngularJS
+        <br />
+        <br />
+        
+        <h4>BackboneJS</h4>
+        <a href="backbone.html" class="icon-columns" data-toggle="tooltip" title="Ansicht"></a>
+        <a href="http://github.com/p0wl/ajax-webapp/blob/master/backbone.html" class="icon-html5" data-toggle="tooltip" title="HTML-Code"></a>
+        <a href="http://github.com/p0wl/ajax-webapp/blob/master/js/app-backbone.js" class="icon-code" data-toggle="tooltip" title="JavaScript"></a>
+        Umsetzung mit BackboneJS
+      </div>
+
       <hr>
 
       <div class="footer">
-        <p>&copy; Paul M&ouml;lders 2013</p>
+        &copy; Paul M&ouml;lders 2013
       </div>
 
     </div> <!-- /container -->
